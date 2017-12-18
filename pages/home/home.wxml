@@ -1,0 +1,34 @@
+<!--pages/home/home.wxml-->
+<!-- 搜索框 -->
+<view class='top'>
+  <input class='search' placeholder='搜索商品'></input>
+</view>
+
+<!-- banner图 -->
+<swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}"
+        circular="{{circular}}" 
+        interval="{{interval}}" 
+        duration="{{duration}}">
+  <block wx:key="{{banners}}" wx:for="{{banners}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image"/>
+    </swiper-item>
+  </block>
+</swiper>
+
+<!-- 分类导航 -->
+<view class='navs'>
+  <block wx:key="{{navsImages}}" wx:for="{{navsImages}}">
+    <image src='{{item}}'></image>
+  </block>
+</view>
+
+<!-- 内容图 -->
+<view class='content'>
+  <view class='content_top'>
+    <block wx:key="{{content_top}}" wx:for="{{content_top}}">
+      <image src='{{item}}'></image>
+    </block>
+  </view>
+</view>
