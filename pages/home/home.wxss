@@ -1,11 +1,12 @@
 /* pages/home/home.wxss */
 .top{
-   background-color: #E8502A; 
-   height: 35px; 
+   background-color: #555555; 
+   height: 100rpx; 
+   padding-top: 20rpx;
 }
 .search{
   width: 90%;
-  height: 25px;
+  height: 60rpx;
   margin: 0 auto;
   border-radius: 20px;
   text-align:center;

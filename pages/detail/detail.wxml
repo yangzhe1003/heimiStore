@@ -1,0 +1,50 @@
+<!--pages/detail/detail.wxml-->
+<view class='container'>
+  <view class='banner'>
+    <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" 
+      duration="{{duration}}">
+      <block wx:key="{{bannerList}}" wx:for="{{bannerList}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" mode="widthFix" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class='title'>
+    <view class='title-text'>{{good.name}}</view>
+    <view class='title-detail'>{{good.detail}}</view>
+    <view class='title-price'>￥{{good.price}}</view>
+  </view> 
+
+  <view class='model'>
+    <view class='model-content'>
+      <text>已选:   </text>
+      <text>   {{good.model}}</text>
+    </view>
+  </view> 
+
+  <!-- 详情 -->
+  <view class='detail'>
+    <view class='detail-title'>概述</view>
+    <block wx:key="{{detailList}}" wx:for="{{detailList}}">
+      <image src='{{item}}' mode="widthFix"></image>
+    </block>
+  </view> 
+</view>
+
+<!-- 底部栏 -->
+<view class='bottom'>
+  <view class='bottom-left' bindtap='jumpHome'>
+    <image src="../../images/bottomNav/home.png"></image>
+    <text>首页</text>
+  </view>
+  <view class='bottom-mid' bindtap='jumpCart'>
+    <image src='../../images/bottomNav/cart.png'></image>
+    <text>购物车</text>
+  </view>
+  <view class='bottom-right' bindtap='addCart'>
+    加入购物车
+  </view>
+</view>

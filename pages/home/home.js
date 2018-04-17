@@ -33,36 +33,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getAllGoods();
+    // this.getAllGoods();
     this.getBanners();
   },
 
-  getAllGoods(){
-    wx.request({
-      url: apiUrl + '/goods/getAllGoods',
-      success: res => {
-        console.log(res);
-        this.setData({
-          goods: res.data,
-        });
-      },
-      fail: err => {
-        console.log(err);
-      }
-    })
-  },
+  //获取商品信息
+  // getAllGoods(){
+  //   wx.request({
+  //     url: apiUrl + '/goods/getAllGoods',
+  //     success: res => {
+  //       console.log(res);
+  //       this.setData({
+  //         goods: res.data,
+  //       });
+  //     },
+  //     fail: err => {
+  //       console.log(err);
+  //     }
+  //   })
+  // },
 
+  //获取banner图
   getBanners(){
+    wx.showLoading({
+      title: '加载中',
+    });
     wx.request({
-      url: apiUrl + '/goods/getBanners',
+      url: apiUrl + '/appwx/getBanners',
       success: res => {
-        console.log(res.data);
-        let banners = [];
-        banners.push(res.data[0].img_url);
-        banners.push(res.data[1].img_url);
-        banners.push(res.data[2].img_url);
+        wx.hideLoading();
+        res.data.data.map((item)=>{
+            item.img_url = "http://127.0.0.1:3100/"+item.img_url
+        });
         this.setData({
-          banners: banners
+          banners: res.data.data
         });
       },
       fail: err => {
@@ -71,52 +75,15 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  //跳转到分类页面
+  jumpClassify(e){
+    console.log(e);
+    app.globalData.curNav = e.target.dataset.id;
+    wx.switchTab({
+      url: '../classify/classify'
+    })
   }
+  
+
+
 })

@@ -1,0 +1,45 @@
+<!--pages/order/order.wxml-->
+<view wx:if="{{!isHaveList}}" >
+  <view class='cart-icon'>
+    <view class='outer' >
+      <image
+    src='https://www.w-nn.cn/uploads/allimg/141006/1-1410061J155-51.png'></image>
+    </view>
+  </view>
+  <view class='cart-text'>
+    还没有在小程序下过单
+  </view>
+
+  <view >
+    <button class='cart-button' bindtap='jumpHome'>
+      到黑米商城逛逛
+    </button>
+  </view>
+</view>
+
+<view wx:else>
+   <scroll-view class="scroll" scroll-y="true">
+      <view class="separate"></view>
+      <view wx:key="{{orderList}}" wx:for="{{orderList}}">
+        <view class="cart_container" data-index="{{index}}" data-id="{{item.id}}" >
+          <view class="item-select">
+            <icon type="waiting" class="item-select" color="#FF6801"/>
+          </view>
+          <view class="column">
+            <text class="title">共{{(item.goods_id.length+1)/2}}件商品</text>
+            <text class="time">{{item.update}}</text>
+            <text class="price">共{{item.totalMoney}}元</text>
+          </view>
+          <view class="row">
+            <view>
+              <view class="status">{{item.status?'已付款':'等待付款'}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="separate"></view>
+      </view>
+    </scroll-view>
+    <view class="bottom_total">
+      <view class="bottom_line"></view>
+    </view>
+</view>

@@ -4,11 +4,12 @@
     "pages/classify/classify",
     "pages/cart/cart",
     "pages/mine/mine",
-    "pages/test/test"
+    "pages/detail/detail",
+    "pages/order/order"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#E8502A",
+    "navigationBarBackgroundColor": "#555555",
     "navigationBarTitleText": "黑米商城",
     "navigationBarTextStyle":"#fff"
   },

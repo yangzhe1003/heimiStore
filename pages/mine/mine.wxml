@@ -1,13 +1,23 @@
-<!--mine.wxml-->
+<!-- mine.wxml -->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class="userinfo">
+        <block >
+            <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+    </view>
+    <!-- *******默认头像******** -->
+    <view class="separate"></view>
+    <view class="person-list">
+        <view class="list-item" bindtap="myOrder">
+            <image class="item-image" src="https://www.w-nn.cn/uploads/allimg/141006/1-1410061J155-51.png"></image>
+            <text class="item-text">我的订单</text>
+        </view>
+        <view class="person-line"></view>
+        <view class="list-item">
+            <image class="item-image" src="https://www.w-nn.cn/uploads/allimg/141006/1-1410061J150-53.png"></image>
+            <text class="item-text">收货地址</text>
+        </view>
+    </view>
+    <view class="separate2"></view>
 </view>
