@@ -1,11 +1,16 @@
 const app = getApp();
 const apiUrl = app.globalData.apiUrl;
+const IMGHeader = app.globalData.IMGHeader;
+
+
 
 Page({
 	data: {
 		classify: [],
+		goods: [],
 		curNav: 1,
-		curIndex: 0,
+		curIndex: 1,
+	
 	},
 
 	/**
@@ -13,7 +18,40 @@ Page({
 	 */
 	onLoad: function (options) {
 		this.getAllClassify();
-		this.getGoodsByClassify(app.globalData.curNav);
+		if(app.globalData.curNav != '0'){
+			this.getGoodsByClassify(app.globalData.curNav);
+		}else {
+			this.setData({
+				curNav: 0,
+				curIndex: 0,
+			});
+			this.getSearch();
+		}
+		
+	},
+
+	onShow(){
+		this.onLoad();
+	},
+	
+	getSearch(){
+		wx.request({
+			url: apiUrl + '/appwx/getAllGoods',
+			data: {
+				keyword: app.globalData.searchValue
+			},
+			success: res => {
+				res.data.data.map(item => {
+					item.small_img = IMGHeader+item.small_img;
+				});
+				this.setData({
+					goods: res.data.data
+				});
+			},
+			fail: err => {
+				console.log(err);
+			}
+		})
 	},
 
 	//点击改变类别事件 
@@ -22,19 +60,29 @@ Page({
 		let id = e.target.dataset.id,
 			index = parseInt(e.target.dataset.index);
 		// 把点击到的某一项，设为当前index  
+		app.globalData.curNav = id;
+		app.globalData.curIndex = index;
 		this.setData({
 			curNav: id,
 			curIndex: index,
 		})
+	
 
 		//请求数据
-		this.getGoodsByClassify(id);
+		if(id != '0'){
+			this.getGoodsByClassify(id);
+		}else {
+			this.getSearch();
+		}
+		
 	},
+
+
 
 	//获取所有分类
 	getAllClassify() {
 		wx.request({
-			url: apiUrl + '/goods/getAllClassify',
+			url: apiUrl + '/appwx/getAllClassify',
 			success: res => {
 				console.log(res);
 				this.setData({
@@ -53,7 +101,7 @@ Page({
 			title: '加载中',
 		});
 		wx.request({
-			url: apiUrl + '/goods/getGoodsByClassify',
+			url: apiUrl + '/appwx/getGoodsByClassify',
 			data: {
 				id: id
 			},
@@ -61,11 +109,14 @@ Page({
 				wx.hideLoading();
 				console.log(res.data.data);
 				res.data.data.map(item => {
-					item.small_img = "http://127.0.0.1:3100/"+item.small_img;
+					item.small_img = IMGHeader+item.small_img;
 				});
-				let children = "classify[" + (id - 1) + "].children";
+				// let children = "classify[" + (id - 1) + "].children";
+				// this.setData({
+				// 	[children]: res.data.data
+				// });
 				this.setData({
-					[children]: res.data.data
+					goods: res.data.data
 				});
 			},
 			fail: err => {

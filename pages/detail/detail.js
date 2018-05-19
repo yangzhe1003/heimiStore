@@ -1,6 +1,8 @@
 // pages/detail/detail.js
 const app = getApp();
 const apiUrl = app.globalData.apiUrl;
+const IMGHeader = app.globalData.IMGHeader;
+
 Page({
 
   /**
@@ -30,18 +32,18 @@ Page({
       title: '加载中',
     });
     wx.request({
-      url: apiUrl + '/goods/getGoodById',
+      url: apiUrl + '/appwx/getGoodById',
       data: {
         id: app.globalData.goodId
       },
       success: res => {
         console.log(res);
-        res.data.data[0].img_url1 = "http://127.0.0.1:3100/"+res.data.data[0].img_url1;
-        res.data.data[0].img_url2 = "http://127.0.0.1:3100/"+res.data.data[0].img_url2;
-        res.data.data[0].img_url3 = "http://127.0.0.1:3100/"+res.data.data[0].img_url3;
-        res.data.data[0].detail_url1 = "http://127.0.0.1:3100/"+res.data.data[0].detail_url1;
-        res.data.data[0].detail_url2 = "http://127.0.0.1:3100/"+res.data.data[0].detail_url2;
-        res.data.data[0].detail_url3 = "http://127.0.0.1:3100/"+res.data.data[0].detail_url3;
+        res.data.data[0].img_url1 = IMGHeader+res.data.data[0].img_url1;
+        res.data.data[0].img_url2 = IMGHeader+res.data.data[0].img_url2;
+        res.data.data[0].img_url3 = IMGHeader+res.data.data[0].img_url3;
+        res.data.data[0].detail_url1 = IMGHeader+res.data.data[0].detail_url1;
+        res.data.data[0].detail_url2 = IMGHeader+res.data.data[0].detail_url2;
+        res.data.data[0].detail_url3 = IMGHeader+res.data.data[0].detail_url3;
 
         this.setData({
           good: res.data.data[0]
@@ -99,7 +101,7 @@ Page({
     });
     let user = { id: app.globalData.userId };
     wx.request({
-      url: apiUrl + '/cart/addCart',
+      url: apiUrl + '/appwx/addCart',
       method: 'post',
       data: {
         good: this.data.good,

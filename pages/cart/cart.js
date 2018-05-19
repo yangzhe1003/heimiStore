@@ -1,6 +1,7 @@
 // pages/cart/cart.js
 const app = getApp();
 const apiUrl = app.globalData.apiUrl;
+const IMGHeader = app.globalData.IMGHeader;
 
 Page({
 
@@ -23,7 +24,12 @@ Page({
 	},
 
 	onShow() {
-		this.onLoad();
+		this.getCart();
+		this.setData({
+			totalMoney: 0,
+			isAllSelect: false,
+			count: 0
+		});
 	},
 
 	//获取用户购物车信息
@@ -38,10 +44,17 @@ Page({
 			},
 			success: res => {
 				console.log('购物车:', res.data.data);
-				if (res.data.length != 0) {
+				res.data.data.map((item) => {
+					item.img = IMGHeader + item.img;
+				});
+				if (res.data.data.length != 0) {
 					this.setData({
 						hasGoods: true,
 						goods: res.data.data,
+					});
+				}else {
+					this.setData({
+						hasGoods: false,
 					});
 				}
 				wx.hideLoading();
@@ -145,15 +158,20 @@ Page({
 
 		wx.request({
 			url: apiUrl + '/appwx/toBuy',
+			method: 'POST',
 			data: {
 				userId: app.globalData.userId,
 				goods: goods
 			},
 			success: res => {
-				console.log(res);
+				console.log(res.data);
+				this.getCart();
+				this.setData({
+					totalMoney: 0
+				});
 			},
 			fail: err => {
-				console.log(err);
+				console.log(err.data);
 			}
 		})
 

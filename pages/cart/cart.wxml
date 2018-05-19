@@ -1,60 +1,47 @@
-<!--pages/cart/cart.wxml-->
-<view wx:if="{{!hasGoods}}" >
-  <view class='cart-icon'>
-    <view class='outer'>
-      <image src='./images/cart@2x.png'></image>
+<!-- pages/cart/cart.wxml -->
+<view wx:if="{{!hasGoods}}">
+    <view class="cart-icon">
+        <view class="outer">
+            <image src="./images/cart@2x.png"></image>
+        </view>
     </view>
-  
-  </view>
-
-  <view class='cart-text'>
-    购物车还是空的
-  </view>
-
-  <view >
-    <button class='cart-button' bindtap='jumpHome'>
-      到黑米商城逛逛
-    </button>
-  </view>
+    <view class="cart-text">购物车还是空的</view>
+    <view>
+        <button class="cart-button" bindtap="jumpHome">到黑米商城逛逛</button>
+    </view>
 </view>
-
 <view wx:else>
-  <!-- <import src="/template/quantity/index.wxml" /> -->
+    <!-- <import src="/template/quantity/index.wxml" /> -->
     <scroll-view class="scroll" scroll-y="true">
-      <view class="separate"></view>
-      <view wx:key="{{goods}}" wx:for="{{goods}}">
-        <view class="cart_container">
-          <view>
-            <icon type="success" class="item-select"  bindtap="switchSelect" color="{{item.isSelect?'#FF6801':'#ccc'}}" data-index="{{index}}" data-id="{{item.id}}" data-price="{{item.good_price}}"/>
-          </view>
-          <image class="item-image" src="{{item.img}}"></image>
-
-          <view class="column">
-            <text class="title">{{item.good_model}}</text>
-            <view class="row">
-              <text class="sku-price">￥</text>
-              <text class="sku-price">{{item.good_price}}</text>
-              <!-- <view class="sku">
+        <view class="separate"></view>
+        <view wx:key="{{goods}}" wx:for="{{goods}}">
+            <view class="cart_container">
+                <view>
+                    <icon type="success" class="item-select" bindtap="switchSelect" color="{{item.isSelect?'#FF6801':'#ccc'}}" data-index="{{index}}" data-id="{{item.id}}" data-price="{{item.good_price}}" />
+                </view>
+                <image class="item-image" src="{{item.img}}"></image>
+                <view class="column">
+                    <text class="title">{{item.good_model}}</text>
+                    <view class="row">
+                        <text class="sku-price">￥</text>
+                        <text class="sku-price">{{item.good_price}}</text>
+                        <!-- <view class="sku">
                 <template is="quantity" data="{{ ...item.count, componentId: index }}" />
               </view> -->
+                    </view>
+                </view>
             </view>
-
-          </view>
+            <view class="separate"></view>
         </view>
-        <view class="separate"></view>
-      </view>
     </scroll-view>
     <view class="bottom_total">
-      <view class="bottom_line"></view>
-
-      <view class="row">
-        <icon type="success" class="item-allselect"  bindtap="allSelect" color="{{isAllSelect?'#FF6801':'#ccc'}}"/>
-        <text class="small_text">全选</text>
-        <text>合计:￥ </text>
-        <text class="price">{{totalMoney}}元</text>
-        <button class="button-red" bindtap="toBuy" formType="submit">去结算</button>
-      </view>
+        <view class="bottom_line"></view>
+        <view class="row">
+            <icon type="success" class="item-allselect" bindtap="allSelect" color="{{isAllSelect?'#FF6801':'#ccc'}}" />
+            <text class="small_text">全选</text>
+            <text>合计:￥</text>
+            <text class="price">{{totalMoney}}元</text>
+            <button class="button-red" bindtap="toBuy" formType="submit">去结算</button>
+        </view>
     </view>
-
-
 </view>

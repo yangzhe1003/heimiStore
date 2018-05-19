@@ -7,9 +7,24 @@ Page({
 		userInfo: {},
 	},
 
-	onLoad: function () {
+	//获取用户头像回调
+	onGotUserInfo(e){
 		this.setData({
-			userInfo: wx.getStorageSync('userInfo')
+			userInfo: e.detail.userInfo
+		});
+	},
+
+	onLoad: function () {
+		// this.setData({
+		// 	userInfo: wx.getStorageSync('userInfo')
+		// });
+		wx.getUserInfo({
+			success: res => {
+				console.log(res);
+				this.setData({
+					userInfo: res.userInfo
+				});
+			}
 		});
 	},
 

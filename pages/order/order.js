@@ -1,6 +1,8 @@
 // pages/order/order.js
 const app = getApp();
 const apiUrl = app.globalData.apiUrl;
+const IMGHeader = app.globalData.IMGHeader;
+
 Page({
 
   /**
@@ -29,7 +31,10 @@ Page({
         userId : app.globalData.userId
       },
       success: res=> {
-        console.log(res);
+        
+        if(res.data.data[0].goods_id){
+          res.data.data[0].goods_id = res.data.data[0].goods_id.split(',');
+        }
         this.setData({
           orderList: res.data.data,
           isHaveList: true
